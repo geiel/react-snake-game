@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Board from "./components/Board";
+import Score from "./components/Score";
 
 const Keys = {
   RIGHT: 39,
@@ -13,6 +14,8 @@ function App() {
   const [direction, setDirection] = useState(1);
   const [start, setStart] = useState(false);
   const [food, setFood] = useState(95);
+  const [actualScore, setActualScore] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
   
   const limits = [];
 
@@ -20,6 +23,7 @@ function App() {
     const foodLimits = [...list, ...limits];
     const foodPosition = Math.floor(Math.random() * (299 - 1) + 1);
     if (!foodLimits.includes(foodPosition)) {
+      setActualScore(actualScore + 1);
       setFood(foodPosition);
     }
   }
@@ -75,8 +79,12 @@ function App() {
   }
 
   const gameOver = () => {
+    if (actualScore > bestScore) {
+      setBestScore(actualScore);
+    }
     setList([121, 122, 123]);
     setDirection(1);
+    setActualScore(0);
     setStart(false);
   }
 
@@ -92,6 +100,7 @@ function App() {
 
   return (
     <div>
+      <Score actualScore={actualScore} bestScore={bestScore} />
       <Board list={list} gameOver={gameOver} food={food} generateFood={generateFood} limits={limits} />
     </div>
   );

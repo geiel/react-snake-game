@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import Square from "./Square";
 
+import './board.css';
+
 const Board = ({ list, gameOver, food, generateFood, limits }) => {
     const mockIndex = [];
     let count = -1;
@@ -8,14 +10,14 @@ const Board = ({ list, gameOver, food, generateFood, limits }) => {
     const getSquare = (index) => {
         count++;
         if (index === food) {
-            return <Square key={index} index={index} color="yellow" food="food" /> 
+            return <Square key={index} index={index} color="yellow" food="food" zIndex={1} /> 
         }
 
         if (list.includes(index)) {
-            return <Square key={index} index={index} color="#FFFFFF" /> 
+            return <Square key={index} index={index} color="#FFFFFF" zIndex={0} /> 
         }
 
-        return <Square key={index} index={index} color={mockIndex[count] % 2 === 0 ? "#7F7F7F" : "#58555A"} /> 
+        return <Square key={index} index={index} color={mockIndex[count] % 2 === 0 ? "#7F7F7F" : "#58555A"} zIndex={0} /> 
     }
 
     const getDiv = (index) => {
@@ -44,7 +46,7 @@ const Board = ({ list, gameOver, food, generateFood, limits }) => {
     })
 
     return (
-        <div style={{textAlign: "center"}}>
+        <div className="container">
             {[...Array(300)].map((x, i) => {
                 mockIndex.push(i);
                 if (i % 20 === 0) {

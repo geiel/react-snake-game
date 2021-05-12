@@ -1,3 +1,13 @@
 body {
     background-color: black;
 }
+
+.score-banner {
+    text-align: center;
+    color: white;
+}
+
+.score-banner > div {
+    display: inline-block;
+    padding: 30px;
+}
